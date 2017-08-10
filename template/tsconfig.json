@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "lib": ["es2016", "dom"],
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "types" : [
+            "core-js"
+        ]
+    },
+    "filesGlob": [
+        "./src/**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "node_modules/@typings",
+        "typings"
+    ]
+}

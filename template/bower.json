@@ -1,0 +1,24 @@
+{
+  "name": "react_browserify",
+  "description": "",
+  "main": "''",
+  "authors": [
+    "Rodey Luo <rodeyluo@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/RodeyManager/react_browserify",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/assets/js/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angular2#^1.6.5",
+    "zone": "^0.8.16",
+    "core": "core-js#*",
+    "core.js": "https://github.com/zloirock/core-js.git#^2.4.1"
+  }
+}
