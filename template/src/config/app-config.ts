@@ -1,21 +1,17 @@
 
 import {API} from './api'
 
-// env: local、dev、stg、prd (当前环境)
+// env: local、dev、stg、prd (当前环境)  ../../config/app-env.js
 let ENV = 'prd';
-let host =  ENV == 'local' ? '../../src/mockData/'
-            : ENV == 'dev' ? 'http://192.168.1.100:9002/app'
-            : ENV == 'stg' ? 'app-test/'
-            : ENV == 'prd' ? 'app/' : '';
 
-let time = ENV != 'prd' ? 10 : 60;
-let debug = ENV != 'prd';
-let apiSuffix = ENV == 'local' ? '.json' : '';
-let protocolReg = /^(https?:)?\/\//i;
+let time: number = ENV != 'prd' ? 10 : 60;
+let debug: boolean = ENV != 'prd';
+let apiSuffix: string = ENV == 'local' ? '.json' : '';
+let protocolReg: RegExp = /^(https?:)?\/\//i;
 
 export let App = {
     env: ENV,
-    ServerHost: host,
+    ServerHost: getServerHost(),
     method: 'POST',
     sendTime: time,
     debug: debug,
@@ -32,5 +28,12 @@ export let App = {
         return location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + (page ? '/' + page : '');
     }
 };
+
+function getServerHost(){
+    return ENV === 'local' ? '../../src/mockData/' :
+        ENV === 'dev' ? 'http://192.168.1.100:9002/app' :
+            ENV === 'stg' ? 'test-app/' :
+                ENV === 'prd' ? 'app/' : '';
+}
 
 App['indexPage'] = 'index.html';

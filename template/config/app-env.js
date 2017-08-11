@@ -17,9 +17,9 @@ const
     dist = argv[_di + 1] || '../build';
 
 (function(){
-    let appPath = './src/config/app.ts';
+    let appPath = './src/config/app-config.ts';
     let appTsContent = fs.readFileSync(appPath, 'utf8');
-    appTsContent = appTsContent.replace(/ENV\s*=\s*('|")[^'"]+?('|");?/i, `ENV = '${env}';`);
+    appTsContent = appTsContent.replace(/ENV(\:\s*string)?\s*=\s*('|")[^'"]*?('|");?/i, `ENV = '${env}';`);
     fs.writeFileSync(appPath, appTsContent, 'utf8');
 })();
 

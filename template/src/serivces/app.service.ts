@@ -7,13 +7,7 @@ import {App} from '../config/app-config';
 @Injectable()
 export class AppService{
 
-    constructor(private http: Http){
-        this.init();
-    }
-
-    init(){
-
-    }
+    constructor(private http: Http){}
 
     test(){
         let url = App.getWebServiceUrl('test');

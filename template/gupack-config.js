@@ -1,13 +1,7 @@
 'use strict';
 
 const
-    path         = require('path'),
-    browserify   = require('browserify'),
-    vfs          = require('vinyl-fs'),
-    mps          = require('map-stream'),
-    sourceStream = require('vinyl-source-stream'),
     tsify        = require('tsify'),
-    uglifyify    = require('uglifyify'),
     env          = require('./config/app-env');
 
 const
@@ -81,7 +75,7 @@ module.exports      =  {
             rely: [
                 'build.css',
                 'build.component.css',
-                'build.jsViews'
+                'build.modules.views'
             ],
             dest: 'views',
             loader: htmlLoaders(),
@@ -92,19 +86,15 @@ module.exports      =  {
             ]
         },
         
-        'build.jsViews': {
+        'build.modules.views': {
             src: 'modules/**/*View.ts',
             dest: 'modules',
-            loader: function(done){
+            loader: {
+                'gulp-browserify-multi-entry': {
 
-                vfs.src(this.src).pipe(mps( (file, next) => {
-                    let info = path.parse(file.path);
-                    let dist = path.resolve(this.dest, '../', path.relative(this.sourceDir, info.dir));
-                    let name = info.name + '.js';
-
-                    let bw = browserify({ debug: !env.isIf })
-                        .add(file.path)
-                        .plugin(tsify, {
+                    debug: !env.isIf,
+                    plugin: [
+                        [tsify, {
                             module: 'commonjs',
                             target: 'es5',
                             lib: ["es2016", "dom"],
@@ -113,21 +103,16 @@ module.exports      =  {
                             experimentalDecorators: true,
                             noImplicitAny: false,
                             removeComments: true
-                        });
-                    if(env.isProduction){
-                    	bw = bw.transform(uglifyify, {
-                            global: true,
-                            sourceMap: false
-                        });
-                    }
-                
-                    bw.bundle()
-                    .pipe(sourceStream(name))
-                    .pipe(vfs.dest(dist));
-                } ));
-
-                return this.stream;
-
+                        }]
+                    ]
+                },
+                'gulp-rename': {
+                    extname: '.js'
+                },
+                'gulp-jsminer': {
+                    _if: env.isProduction,
+                    preserveComments: '!'
+                }
             },
             watch: ['modules/**/*.ts', 'components/**/*', 'serivces/**/*']
         }
