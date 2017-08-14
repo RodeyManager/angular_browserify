@@ -2,7 +2,7 @@
 import {API} from './api'
 
 // env: local、dev、stg、prd (当前环境)  ../../config/app-env.js
-let ENV = 'prd';
+let ENV = 'local';
 
 let time: number = ENV != 'prd' ? 10 : 60;
 let debug: boolean = ENV != 'prd';
