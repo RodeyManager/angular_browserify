@@ -1,6 +1,6 @@
 
 import {Component, OnInit} from "@angular/core";
-import {AppService} from "../../serivces/app.service";
+import {TestService} from "../../services/test.service";
 import {HelloComponent} from "../../components/hello/hello.component";
 
 @Component({
@@ -9,11 +9,11 @@ import {HelloComponent} from "../../components/hello/hello.component";
     entryComponents: [ HelloComponent ]
 })
 export class IndexComponent implements OnInit{
-    constructor(private appService: AppService){}
+    constructor(private testService: TestService){}
 
     ngOnInit(){
 
-        this.appService.test().then(res => {
+        this.testService.getData().then(res => {
             console.log(res);
         });
 

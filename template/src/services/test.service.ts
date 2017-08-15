@@ -5,19 +5,20 @@ import 'rxjs/add/operator/toPromise';
 import {App} from '../config/app-config';
 
 @Injectable()
-export class AppService{
+export class TestService{
+
+    url: string = App.getWebServiceUrl('test');
 
     constructor(private http: Http){}
 
-    test(){
-        let url = App.getWebServiceUrl('test');
-        return this.http.post(url, { name: 'Angular', password: 'angular' })
+    getData(){
+        return this.http.post(this.url, {  })
             .toPromise()
             .then(res => res.json())
-            .catch(AppService.handlerError);
+            .catch(this.handlerError);
     }
 
-    static handlerError(err){
+    handlerError(err){
         console.log(err);
     }
 

@@ -20,6 +20,7 @@ module.exports      =  {
     indexFile: 'views/index.html',
     // 每次执行编译之前是否清理当前编译目录
     startClean: true,
+    port: 3000,
     // 静态资源CDN配置
     // statics: {
     //     _if: false,
@@ -62,6 +63,13 @@ module.exports      =  {
             loader: cssLoaders('components.min.css')
         },
 
+        'build.component.html': {
+            src: 'components/**/*.html',
+            dest: 'components',
+            // 依赖task列表
+            rely: ['build.assets']
+        },
+
         'build.assets': {
             src: 'assets/{fonts,images,js,libs}/**/*',
             filters: [],
@@ -75,6 +83,7 @@ module.exports      =  {
             rely: [
                 'build.css',
                 'build.component.css',
+                'build.component.html',
                 'build.modules.views'
             ],
             dest: 'views',
@@ -93,18 +102,7 @@ module.exports      =  {
                 'gulp-browserify-multi-entry': {
 
                     debug: !env.isIf,
-                    plugin: [
-                        [tsify, {
-                            module: 'commonjs',
-                            target: 'es5',
-                            lib: ["es2016", "dom"],
-                            moduleResolution: 'node',
-                            emitDecoratorMetadata: true,
-                            experimentalDecorators: true,
-                            noImplicitAny: false,
-                            removeComments: true
-                        }]
-                    ]
+                    plugin: [ tsify ]
                 },
                 'gulp-rename': {
                     extname: '.js'
@@ -114,7 +112,7 @@ module.exports      =  {
                     preserveComments: '!'
                 }
             },
-            watch: ['modules/**/*.ts', 'components/**/*', 'serivces/**/*']
+            watch: ['modules/**/*.ts', 'components/**/*', 'serivces/**/*', 'config/**/*']
         }
 
     },
