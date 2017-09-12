@@ -1,17 +1,15 @@
-
-import {Component, OnInit} from "@angular/core";
-import {TestService} from "../../services/test.service";
-import {HelloComponent} from "../../components/hello/hello.component";
+import { Component, OnInit } from "@angular/core";
+import { TestService } from "../../services/test.service";
 
 @Component({
     selector: 'index-view',
-    template: `<hello></hello>`,
-    entryComponents: [ HelloComponent ]
+    template: `<hello></hello>`
 })
-export class IndexComponent implements OnInit{
-    constructor(private testService: TestService){}
+export class IndexComponent implements OnInit {
+    constructor(private testService: TestService) {
+    }
 
-    ngOnInit(){
+    ngOnInit() {
 
         this.testService.getData().then(res => {
             console.log(res);

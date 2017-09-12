@@ -1,8 +1,8 @@
 
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
-import {App} from '../config/app-config';
+import { App } from '../config/app-config';
 
 @Injectable()
 export class TestService{

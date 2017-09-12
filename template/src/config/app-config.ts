@@ -1,24 +1,20 @@
 
-import {API} from './api'
+import { API } from './api'
 
-// env: local、dev、stg、prd (当前环境)  ../../config/app-env.js
+// env: local(默认)、dev、stg、prd
 let ENV = 'local';
-
-let time: number = ENV != 'prd' ? 10 : 60;
-let debug: boolean = ENV != 'prd';
-let apiSuffix: string = ENV == 'local' ? '.json' : '';
 let protocolReg: RegExp = /^(https?:)?\/\//i;
 
 export let App = {
     env: ENV,
     ServerHost: getServerHost(),
     method: 'POST',
-    sendTime: time,
-    debug: debug,
-    apiSuffix: apiSuffix,
-    // 会员登陆验证
+    sendTime: ENV != 'prd' ? 10 : 60,
+    debug: ENV != 'prd',
+    apiSuffix: ENV == 'local' ? '.json' : '',
     webServiceUrls: API,
-    // 更具key获取api地址
+
+    // 根据接口名获取api地址
     getWebServiceUrl: function(name: string, host?: string): string {
         let APINAME = App.webServiceUrls[name];
         return protocolReg.test(APINAME) ? APINAME : App.getHosts((host || App.ServerHost) + APINAME + (App.apiSuffix || ''));
@@ -30,10 +26,12 @@ export let App = {
 };
 
 function getServerHost(){
-    return ENV === 'local' ? '../../src/mockData/' :
-        ENV === 'dev' ? 'http://192.168.1.100:9002/app' :
-            ENV === 'stg' ? 'test-app/' :
-                ENV === 'prd' ? 'app/' : '';
+    return  ENV === 'local' ? '../../src/mockData/' :
+            ENV === 'dev'   ? getDevServerHost() :
+            ENV === 'stg'   ? 'test-app/' :
+            ENV === 'prd'   ? 'app/' : '';
 }
 
-App['indexPage'] = 'index.html';
+function getDevServerHost(){
+    return 'http://192.168.1.100:9002/app'; //(Rodey Luo)
+}
