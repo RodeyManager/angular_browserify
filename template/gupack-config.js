@@ -112,7 +112,7 @@ module.exports      =  {
                     preserveComments: '!'
                 }
             },
-            watch: ['modules/**/*.ts', 'components/**/*', 'serivces/**/*', 'config/**/*']
+            watch: ['modules/**/*.ts', 'components/**/*', 'services/**/*.ts', 'config/**/*']
         }
 
     },

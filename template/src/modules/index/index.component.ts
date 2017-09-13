@@ -6,6 +6,7 @@ import { TestService } from "../../services/test.service";
     template: `<hello></hello>`
 })
 export class IndexComponent implements OnInit {
+
     constructor(private testService: TestService) {
     }
 
@@ -16,4 +17,5 @@ export class IndexComponent implements OnInit {
         });
 
     }
+
 }

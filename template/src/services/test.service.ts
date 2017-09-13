@@ -1,4 +1,3 @@
-
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
@@ -9,7 +8,8 @@ export class TestService{
 
     url: string = App.getWebServiceUrl('test');
 
-    constructor(private http: Http){}
+    constructor(private http: Http){
+    }
 
     getData(){
         return this.http.post(this.url, {  })

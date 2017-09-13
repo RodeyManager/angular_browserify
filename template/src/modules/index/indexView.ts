@@ -1,4 +1,3 @@
-///<reference path="../../../node_modules/@angular/typescript/lib/lib.es6.d.ts" />
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { IndexModule } from "./index.module";
@@ -9,7 +8,6 @@ if (App.env === 'prd') {
     enableProdMode();
 }
 platformBrowserDynamic().bootstrapModule(IndexModule);
-
 
 
 
